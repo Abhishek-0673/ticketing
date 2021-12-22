@@ -8,7 +8,8 @@ import { PaymentCreatedListener } from '../events/listeners/payment-created-list
 
 const PORT = 3000;
 const connectDB = async()=>{
-
+  console.log('Starting...');
+  
   if(!process.env.JWT_KEY){
     throw new Error("JWT_KEY must be defined");
   }
