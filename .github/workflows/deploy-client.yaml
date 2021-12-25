@@ -1,11 +1,11 @@
-name: deploy-payments
+name: deploy-client
 
 on:
   push:
     branches:
       - main
     paths:
-      - 'payments/**'
+      - 'client/**'
 
 jobs:
   build:
@@ -16,10 +16,10 @@ jobs:
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-      - run: cd payments && docker build -t au9798/payments .
-      - run: docker push au9798/payments
+      - run: cd client && docker build -t au9798/client .
+      - run: docker push au9798/client
       - uses: digitalocean/action-doctl@v2
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
       - run: doctl kubernetes cluster kubeconfig save ticketing
-      - run: kubectl rollout restart deployment payments-depl
+      - run: kubectl rollout restart deployment client-depl
